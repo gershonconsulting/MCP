@@ -2,7 +2,7 @@
 // Deployed in the "task" Supabase project (ggudrgzqleunhaiegyce) with verify_jwt = false:
 // it does its own auth with the token stored in public.mcp_config.
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { handleHttp } from "./mcp.ts";
+import { handleHttp, type ServerInfo } from "../_shared/mcp.ts";
 import { buildTools, type Data, type Project, type Task } from "./tools.ts";
 
 // Radar lives in another Supabase project. We only call two token-gated RPCs there,
@@ -58,12 +58,21 @@ const data: Data = {
 };
 
 const tools = buildTools(data);
+const INFO: ServerInfo = {
+  name: "gershon-mcp",
+  title: "Gershon MCP (internal)",
+  version: "0.1.0",
+  instructions:
+    "Gershon Consulting internal data (read-only). Task = projects and tasks of the team (task.gershon.ai). " +
+    "Client = canonical client registry (client numbers) and the platform matrix. Radar = LinkedIn prospects " +
+    "collected per owner. Dates are UTC. Start with task_overview or radar_summary, then drill down.",
+};
 
 Deno.serve(async (req) => {
   try {
     const token = await expectedToken();
     currentToken = token ?? "";
-    return await handleHttp(req, tools, async () => token);
+    return await handleHttp(req, tools, async () => token, INFO);
   } catch (e) {
     console.error(e);
     return new Response(JSON.stringify({ jsonrpc: "2.0", id: null, error: { code: -32603, message: "Server error" } }), {

@@ -8,5 +8,7 @@ STATUS
     - apply sql/01 in task project, sql/02 in radar project (token value is NOT in git)
     - deploy edge function gershon-mcp (task project, verify_jwt=false)
     - add the connector URL in claude.ai
- ❌ Next product direction (Olivier 2026-11-04): a client-facing "US Opportunities" MCP. See docs/us-opportunities.md.
+ ✅ US Opportunities pilot code (supabase/functions/us-opportunities): 4 public tools, live-tested on
+    Urban Factory, CanalChat, Meteor Biotech. ❌ Not deployed (same safety-check block).
+ ❌ v0.2 ideas: US events via events.gershon.ai, new US companies (E2 feed), SAM.gov open tenders (free key), lead log table.
  ❌ Later: OAuth instead of URL token; write tools (mark task done) only with Olivier's OK.

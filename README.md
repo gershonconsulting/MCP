@@ -32,5 +32,17 @@ through safe, read-only "buttons" instead of clicking around in a browser.
 3. Deploy `supabase/functions/gershon-mcp` with verify_jwt off.
 4. Add the connector URL in Claude (Settings → Connectors → Add custom connector).
 
+## Server 2 — US Opportunities (public, v0.1)
+Supabase Edge Function `us-opportunities` (same task project). Public data only, no token.
+
+| Tool | What it answers |
+|---|---|
+| `us_opportunity_brief` | One-shot: federal demand, likely US partners, funding, Gershon next steps + booking link |
+| `find_us_federal_buyers` | US federal offices buying this, and the US companies winning that money (giants skipped) |
+| `find_us_grants` | Open/forecasted Grants.gov funding (exact-phrase search, on-topic flag) |
+| `talk_to_gershon` | Booking link + a brief to paste |
+
+Sources: USAspending.gov and Grants.gov (free, no key). Live demo: `deno run -A test/live_demo.ts "Urban Factory" "docking station,computer accessories"`.
+
 ## Tests
-`deno test test/` — 8 tests, fixtures only, no network.
+`deno test test/` — 12 tests, fixtures only, no network.

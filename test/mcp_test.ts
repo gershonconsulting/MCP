@@ -1,6 +1,7 @@
 // Run: deno test test/   (no network, no database — fixtures only)
 import { assert, assertEquals } from "jsr:@std/assert@1";
-import { handleHttp } from "../supabase/functions/gershon-mcp/mcp.ts";
+import { handleHttp } from "../supabase/functions/_shared/mcp.ts";
+const INFO = { name: "gershon-mcp", title: "t", version: "0", instructions: "" };
 import { buildTools, type Data } from "../supabase/functions/gershon-mcp/tools.ts";
 
 const TOKEN = "gmcp_test123";
@@ -28,7 +29,7 @@ const tools = buildTools(data, () => NOW);
 
 async function call(body: unknown, token: string | null = TOKEN) {
   const url = `https://x.supabase.co/functions/v1/gershon-mcp${token ? "/" + token : ""}`;
-  const res = await handleHttp(new Request(url, { method: "POST", body: JSON.stringify(body), headers: { "content-type": "application/json" } }), tools, async () => TOKEN);
+  const res = await handleHttp(new Request(url, { method: "POST", body: JSON.stringify(body), headers: { "content-type": "application/json" } }), tools, async () => TOKEN, INFO);
   return { status: res.status, json: res.status === 202 ? null : await res.json() };
 }
 async function tool(name: string, args: Record<string, unknown> = {}) {
@@ -43,7 +44,7 @@ Deno.test("rejects missing or wrong token", async () => {
 });
 
 Deno.test("bearer header works too", async () => {
-  const res = await handleHttp(new Request("https://x/functions/v1/gershon-mcp", { method: "POST", headers: { authorization: `Bearer ${TOKEN}` }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "ping" }) }), tools, async () => TOKEN);
+  const res = await handleHttp(new Request("https://x/functions/v1/gershon-mcp", { method: "POST", headers: { authorization: `Bearer ${TOKEN}` }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "ping" }) }), tools, async () => TOKEN, INFO);
   assertEquals(res.status, 200);
 });
 

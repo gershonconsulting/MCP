@@ -2,8 +2,12 @@
 // Spec: https://modelcontextprotocol.io/specification — we answer POST JSON-RPC with
 // application/json, never open SSE streams, and keep no session state.
 
-export const SERVER_NAME = "gershon-mcp";
-export const SERVER_VERSION = "0.1.0";
+export interface ServerInfo {
+  name: string;
+  title: string;
+  version: string;
+  instructions: string;
+}
 const SUPPORTED_PROTOCOLS = ["2025-06-18", "2025-03-26", "2024-11-05"];
 
 export interface ToolDef {
@@ -16,12 +20,6 @@ export interface ToolDef {
 
 type Json = Record<string, unknown>;
 
-const INSTRUCTIONS =
-  "Gershon Consulting internal data (read-only). Task = projects and tasks of the team " +
-  "(task.gershon.ai). Client = canonical client registry (client numbers) and the platform matrix. " +
-  "Radar = LinkedIn prospects collected per owner. Dates are UTC. Start with task_overview or " +
-  "radar_summary for a quick picture, then drill down.";
-
 function rpcResult(id: unknown, result: unknown): Json {
   return { jsonrpc: "2.0", id, result };
 }
@@ -29,7 +27,7 @@ function rpcError(id: unknown, code: number, message: string): Json {
   return { jsonrpc: "2.0", id: id ?? null, error: { code, message } };
 }
 
-async function handleOne(msg: Json, tools: ToolDef[]): Promise<Json | null> {
+async function handleOne(msg: Json, tools: ToolDef[], info: ServerInfo): Promise<Json | null> {
   const id = msg.id;
   const method = msg.method as string | undefined;
   const isNotification = id === undefined;
@@ -46,8 +44,8 @@ async function handleOne(msg: Json, tools: ToolDef[]): Promise<Json | null> {
       return rpcResult(id, {
         protocolVersion,
         capabilities: { tools: { listChanged: false } },
-        serverInfo: { name: SERVER_NAME, title: "Gershon MCP", version: SERVER_VERSION },
-        instructions: INSTRUCTIONS,
+        serverInfo: { name: info.name, title: info.title, version: info.version },
+        instructions: info.instructions,
       });
     }
     case "ping":
@@ -121,17 +119,21 @@ export function extractToken(req: Request): string | null {
   return url.searchParams.get("key");
 }
 
+/** auth: a function returning the expected token, or "public" for an open server. */
 export async function handleHttp(
   req: Request,
   tools: ToolDef[],
-  getExpectedToken: () => Promise<string | null>,
+  auth: (() => Promise<string | null>) | "public",
+  info: ServerInfo,
 ): Promise<Response> {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
 
-  const expected = await getExpectedToken();
-  const given = extractToken(req);
-  if (!expected || !given || !safeEqual(given, expected)) {
-    return json(rpcError(null, -32001, "Unauthorized"), 401);
+  if (auth !== "public") {
+    const expected = await auth();
+    const given = extractToken(req);
+    if (!expected || !given || !safeEqual(given, expected)) {
+      return json(rpcError(null, -32001, "Unauthorized"), 401);
+    }
   }
 
   if (req.method === "GET") {
@@ -149,9 +151,9 @@ export async function handleHttp(
   }
 
   if (Array.isArray(body)) {
-    const out = (await Promise.all(body.map((m) => handleOne(m as Json, tools)))).filter(Boolean);
+    const out = (await Promise.all(body.map((m) => handleOne(m as Json, tools, info)))).filter(Boolean);
     return out.length ? json(out) : new Response(null, { status: 202, headers: CORS });
   }
-  const res = await handleOne(body as Json, tools);
+  const res = await handleOne(body as Json, tools, info);
   return res ? json(res) : new Response(null, { status: 202, headers: CORS });
 }

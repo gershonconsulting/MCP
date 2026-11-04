@@ -1,5 +1,5 @@
 // The "buttons": every tool the Gershon MCP exposes. All read-only in v0.1.
-import type { ToolDef } from "./mcp.ts";
+import type { ToolDef } from "../_shared/mcp.ts";
 
 export interface Project {
   id: string;
