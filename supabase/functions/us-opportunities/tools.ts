@@ -182,7 +182,7 @@ export function buildTools(fetcher: Fetcher, now: () => Date = () => new Date())
         brief_to_paste: [
           str(a.name) && `Name: ${str(a.name)}`, str(a.company) && `Company: ${str(a.company)}`,
           str(a.country) && `Country: ${str(a.country)}`, str(a.interest) && `Goal in the US: ${str(a.interest)}`,
-          "Found Gershon through: US Opportunities connector",
+          "Found Gershon through: the Gershon connector in their AI",
         ].filter(Boolean).join("\n"),
       }),
     },

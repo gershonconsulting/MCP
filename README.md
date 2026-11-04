@@ -32,7 +32,7 @@ through safe, read-only "buttons" instead of clicking around in a browser.
 3. Deploy `supabase/functions/gershon-mcp` with verify_jwt off.
 4. Add the connector URL in Claude (Settings → Connectors → Add custom connector).
 
-## Server 2 — US Opportunities (public, v0.1)
+## Server 2 — "Gershon" connector (public, US opportunities, v0.1)
 Supabase Edge Function `us-opportunities` (same task project). Public data only, no token.
 
 | Tool | What it answers |

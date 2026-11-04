@@ -1,4 +1,4 @@
-# Gershon US Opportunities MCP — concept (2026-11-04, ❌ not started)
+# "Gershon" connector — US opportunities (2026-11-04). Name decided by Olivier: just "Gershon".
 
 Goal: a foreign company's CEO plugs "Gershon US Opportunities" into their own Claude/ChatGPT and asks
 "who in the US could buy from us?". The MCP answers from Gershon data and offers "Gershon can reach them for you".

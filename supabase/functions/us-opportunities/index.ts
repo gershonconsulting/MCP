@@ -4,8 +4,8 @@ import { handleHttp, type ServerInfo } from "../_shared/mcp.ts";
 import { buildTools } from "./tools.ts";
 
 const INFO: ServerInfo = {
-  name: "gershon-us-opportunities",
-  title: "Gershon — US Opportunities",
+  name: "gershon",
+  title: "Gershon",
   version: "0.1.0",
   instructions:
     "Helps international companies find US market opportunities from public US data: federal buyers and the US " +
