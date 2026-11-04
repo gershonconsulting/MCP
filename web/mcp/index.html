@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gershon US Opportunities MCP Server — US market data for any AI | Gershon Consulting</title>
+<title>Gershon MCP Server — US market data for any AI | Gershon Consulting</title>
 <meta name="description" content="Free, public MCP server for Claude, ChatGPT, Cursor, VS Code and Gemini: ask your AI who in the US buys what you sell, which US companies could partner with you, and what federal funding is open.">
 <link rel="canonical" href="https://www.gershonconsulting.com/mcp/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Gershon Consulting">
-<meta property="og:title" content="Gershon US Opportunities — the MCP server for US market entry">
+<meta property="og:title" content="Gershon — the MCP server for US market entry">
 <meta property="og:description" content="Plug it into Claude or ChatGPT and ask: who in the US could buy from us? Public US data, no signup, free.">
 <meta property="og:url" content="https://www.gershonconsulting.com/mcp/">
 <meta property="og:image" content="https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=1200&h=630&q=75">
@@ -63,12 +63,12 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 .copied{font-size:14px;color:#9fe0a4;align-self:center;display:none}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[
-{"@type":"SoftwareApplication","@id":"https://www.gershonconsulting.com/mcp/#app","name":"Gershon US Opportunities MCP Server","alternateName":["Gershon MCP","Gershon US Opportunities"],"applicationCategory":"BusinessApplication","applicationSubCategory":"Model Context Protocol server","operatingSystem":"Any (remote, Streamable HTTP)","url":"https://www.gershonconsulting.com/mcp/","downloadUrl":"https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities","codeRepository":"https://github.com/gershonconsulting/MCP","softwareVersion":"0.1.0","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Public MCP server that lets any AI assistant find US market opportunities for an international company: US federal buyers and spend, US companies winning that business (likely partners), and open federal grants. Data from USAspending.gov and Grants.gov.","featureList":["us_opportunity_brief","find_us_federal_buyers","find_us_grants","talk_to_gershon"],"publisher":{"@id":"https://www.gershonconsulting.com/#org"}},
+{"@type":"SoftwareApplication","@id":"https://www.gershonconsulting.com/mcp/#app","name":"Gershon MCP Server","alternateName":["Gershon","Gershon US Opportunities"],"applicationCategory":"BusinessApplication","applicationSubCategory":"Model Context Protocol server","operatingSystem":"Any (remote, Streamable HTTP)","url":"https://www.gershonconsulting.com/mcp/","downloadUrl":"https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities","codeRepository":"https://github.com/gershonconsulting/MCP","softwareVersion":"0.2.0","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Public MCP server that lets any AI assistant find US market opportunities for an international company: US federal buyers and spend, US companies winning that business (likely partners), and open federal grants. It also defines a US ICP, sizes the US market (BLS QCEW), ranks states to set up in, lists fitting US trade shows and LinkedIn groups, compares direct vs indirect partners and finds sector investors (SEC Form D).","featureList":["us_opportunity_brief","define_us_icp","us_market_size","find_us_federal_buyers","us_partners_direct_vs_indirect","best_us_state_to_set_up","find_us_events","find_linkedin_groups","find_smart_money_investors","find_us_grants","talk_to_gershon"],"publisher":{"@id":"https://www.gershonconsulting.com/#org"}},
 {"@type":"Organization","@id":"https://www.gershonconsulting.com/#org","name":"Gershon Consulting LLC","url":"https://www.gershonconsulting.com/","logo":"https://www.gershonconsulting.com/new/logo3d-t.webp"},
 {"@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What is the Gershon US Opportunities MCP server?","acceptedAnswer":{"@type":"Answer","text":"A free, public Model Context Protocol server. Add its URL to Claude, ChatGPT, Cursor, VS Code or Gemini CLI and your AI can look up which US federal offices buy what you sell, which US companies already win that business, and which federal grants are open."}},
+{"@type":"Question","name":"What is the Gershon MCP server?","acceptedAnswer":{"@type":"Answer","text":"A free, public Model Context Protocol server. Add its URL to Claude, ChatGPT, Cursor, VS Code or Gemini CLI and your AI can look up which US federal offices buy what you sell, which US companies already win that business, and which federal grants are open."}},
 {"@type":"Question","name":"Does it cost anything or need an account?","acceptedAnswer":{"@type":"Answer","text":"No. It is free, needs no signup and no API key."}},
-{"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"Public US government sources: USAspending.gov for federal contract spending and Grants.gov for open and forecasted federal funding. No private or client data is exposed."}},
+{"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"Public US government sources: USAspending.gov, Grants.gov, BLS QCEW and SEC EDGAR, plus Gershon Consulting's curated US trade-show list. No private or client data is exposed."}},
 {"@type":"Question","name":"Can it change anything in my accounts?","acceptedAnswer":{"@type":"Answer","text":"No. Every tool is read-only and the server stores nothing about your questions."}}]}]}</script>
 <!--GC_TRACKERS-->
 </head><body>
@@ -78,9 +78,9 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 <section class="hero"><div class="wrap">
 <p class="kicker">MCP server · Free · Public US data</p>
 <h1>Ask your AI who in the US could buy from you.</h1>
-<p class="lead">Gershon US Opportunities is a Model Context Protocol server. Add one URL to Claude, ChatGPT, Cursor, VS Code or Gemini, and your assistant can map US federal buyers, likely US partners and open funding for your product — in one question.</p>
+<p class="lead">Gershon is a free Model Context Protocol server for US market entry. Add one URL to Claude, ChatGPT, Cursor, VS Code or Gemini, and your assistant can define your US ICP, size the market, map buyers and partners, pick the state, the trade shows and the investors — in plain questions.</p>
 <div class="endpoint"><code id="ep">https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities</code><button class="btn" id="copy" data-ev="mcp_copy_url">Copy URL</button><span class="copied" id="ok">Copied ✓</span></div>
-<div class="badges"><span>Streamable HTTP</span><span>No signup · no API key</span><span>Read-only</span><span>4 tools</span><span>Open source</span></div>
+<div class="badges"><span>Streamable HTTP</span><span>No signup · no API key</span><span>Read-only</span><span>11 tools</span><span>Open source</span></div>
 </div></section>
 
 <section class="sec"><div class="wrap">
@@ -89,7 +89,9 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 <div class="prompts">
 <div class="prompt">"We make laptop docking stations in France. Where are our US opportunities?"</div>
 <div class="prompt">"Which US federal agencies spend on medical imaging AI, and which US companies win those contracts?"</div>
-<div class="prompt">"Are there open US federal grants for battery recycling?"</div>
+<div class="prompt">"Which US state should we set up in for medical imaging, and which trade shows should we attend?"</div>
+<div class="prompt">"Who is the smart money investing in cybersecurity in the US right now?"</div>
+<div class="prompt">"Should we go direct or through partners for docking stations in the US?"</div>
 <div class="prompt">"Find mid-size US partners already selling cybersecurity to the Department of Defense."</div>
 </div>
 <div class="sample">
@@ -114,19 +116,19 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 <div class="tabs" role="tablist">
 <button role="tab" aria-selected="true" data-t="claude">Claude</button><button role="tab" data-t="chatgpt">ChatGPT</button><button role="tab" data-t="cc">Claude Code</button><button role="tab" data-t="cursor">Cursor</button><button role="tab" data-t="vscode">VS Code</button><button role="tab" data-t="gemini">Gemini CLI</button>
 </div>
-<div class="panel on" id="p-claude"><ol><li>Open Claude (web or desktop) → <b>Settings → Connectors</b>.</li><li>Click <b>Add custom connector</b>, name it <b>Gershon US Opportunities</b>.</li><li>Paste the URL above and save. Leave authentication empty.</li><li>In a chat, enable the connector from the tools menu and ask your question.</li></ol><p style="font-size:14px;color:var(--mute)">Custom connectors depend on your Claude plan.</p></div>
-<div class="panel" id="p-chatgpt"><ol><li>Open ChatGPT → <b>Settings → Apps &amp; Connectors → Advanced</b> and turn on <b>Developer mode</b>.</li><li>Choose <b>Create</b>, name it <b>Gershon US Opportunities</b>, paste the URL, authentication <b>None</b>.</li><li>Start a chat, add the connector from the + menu, and ask.</li></ol><p style="font-size:14px;color:var(--mute)">Developer-mode connectors depend on your ChatGPT plan; menu names can change.</p></div>
-<div class="panel" id="p-cc"><pre>claude mcp add --transport http gershon-us-opportunities https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities</pre></div>
+<div class="panel on" id="p-claude"><ol><li>Open Claude (web or desktop) → <b>Settings → Connectors</b>.</li><li>Click <b>Add custom connector</b>, name it <b>Gershon</b>.</li><li>Paste the URL above and save. Leave authentication empty.</li><li>In a chat, enable the connector from the tools menu and ask your question.</li></ol><p style="font-size:14px;color:var(--mute)">Custom connectors depend on your Claude plan.</p></div>
+<div class="panel" id="p-chatgpt"><ol><li>Open ChatGPT → <b>Settings → Apps &amp; Connectors → Advanced</b> and turn on <b>Developer mode</b>.</li><li>Choose <b>Create</b>, name it <b>Gershon</b>, paste the URL, authentication <b>None</b>.</li><li>Start a chat, add the connector from the + menu, and ask.</li></ol><p style="font-size:14px;color:var(--mute)">Developer-mode connectors depend on your ChatGPT plan; menu names can change.</p></div>
+<div class="panel" id="p-cc"><pre>claude mcp add --transport http gershon https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities</pre></div>
 <div class="panel" id="p-cursor"><p>Add to <code>~/.cursor/mcp.json</code>:</p><pre>{
   "mcpServers": {
-    "gershon-us-opportunities": {
+    "gershon": {
       "url": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
     }
   }
 }</pre></div>
 <div class="panel" id="p-vscode"><p>Add to <code>.vscode/mcp.json</code>:</p><pre>{
   "servers": {
-    "gershon-us-opportunities": {
+    "gershon": {
       "type": "http",
       "url": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
     }
@@ -134,7 +136,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 }</pre></div>
 <div class="panel" id="p-gemini"><p>Add to <code>~/.gemini/settings.json</code>:</p><pre>{
   "mcpServers": {
-    "gershon-us-opportunities": {
+    "gershon": {
       "httpUrl": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
     }
   }
@@ -142,21 +144,28 @@ footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(
 </div></section>
 
 <section class="sec" id="tools"><div class="wrap">
-<p class="kicker">Tools</p><h2>Four read-only tools</h2>
+<p class="kicker">Tools</p><h2>Eleven read-only tools</h2>
 <div class="cards">
-<div class="card"><code>us_opportunity_brief</code><p>One-shot brief for a company: federal demand, likely US partners, funding and next steps. Start here.</p></div>
-<div class="card"><code>find_us_federal_buyers</code><p>US federal offices buying your category, how much they spend, and the US companies winning that money.</p></div>
-<div class="card"><code>find_us_grants</code><p>Open and forecasted US federal grants for a topic, with agency, deadline and link.</p></div>
+<div class="card"><code>us_opportunity_brief</code><p>One-shot brief: federal demand, likely US partners, funding and next steps. Start here.</p></div>
+<div class="card"><code>define_us_icp</code><p>A US Ideal Customer Profile worksheet grounded in the US industry codes behind your category.</p></div>
+<div class="card"><code>us_market_size</code><p>US establishments, jobs and wages in your industry, top states, plus federal spend.</p></div>
+<div class="card"><code>find_us_federal_buyers</code><p>US federal offices buying your category, their spend, and the US companies winning it.</p></div>
+<div class="card"><code>us_partners_direct_vs_indirect</code><p>Direct vs indirect: US end buyers vs the distributors, integrators and OEMs already winning the business.</p></div>
+<div class="card"><code>best_us_state_to_set_up</code><p>States ranked by demand and industry presence, known hubs, Delaware vs operating state.</p></div>
+<div class="card"><code>find_us_events</code><p>The recurring US trade shows that fit your category, with typical month, city and link.</p></div>
+<div class="card"><code>find_linkedin_groups</code><p>Ready-to-open LinkedIn searches for groups, posts and buyers, and how to use groups well.</p></div>
+<div class="card"><code>find_smart_money_investors</code><p>US funds raising for your sector and US companies in your space that raised (SEC Form D).</p></div>
+<div class="card"><code>find_us_grants</code><p>Open and forecasted US federal grants for a topic, with deadline and link.</p></div>
 <div class="card"><code>talk_to_gershon</code><p>When you want help acting on it: a free 30-minute call link and a brief to paste.</p></div>
 </div>
-<p class="intro" style="margin-top:26px">Data: <a href="https://www.usaspending.gov" rel="nofollow noopener" target="_blank">USAspending.gov</a> and <a href="https://www.grants.gov" rel="nofollow noopener" target="_blank">Grants.gov</a>, queried live. The server is stateless, stores no questions and exposes no Gershon client data. Source code: <a href="https://github.com/gershonconsulting/MCP" target="_blank" rel="noopener">github.com/gershonconsulting/MCP</a> · machine-readable listing: <a href="/mcp/server.json">server.json</a>.</p>
+<p class="intro" style="margin-top:26px">Data: <a href="https://www.usaspending.gov" rel="nofollow noopener" target="_blank">USAspending.gov</a>, <a href="https://www.grants.gov" rel="nofollow noopener" target="_blank">Grants.gov</a>, <a href="https://www.bls.gov/cew/" rel="nofollow noopener" target="_blank">BLS QCEW</a> and <a href="https://www.sec.gov/edgar/search/" rel="nofollow noopener" target="_blank">SEC EDGAR</a>, queried live, plus Gershon's curated list of US trade shows. The server is stateless, stores no questions and exposes no Gershon client data. Source code: <a href="https://github.com/gershonconsulting/MCP" target="_blank" rel="noopener">github.com/gershonconsulting/MCP</a> · machine-readable listing: <a href="/mcp/server.json">server.json</a>.</p>
 </div></section>
 
 <section class="sec alt" id="faq"><div class="wrap narrow">
 <p class="kicker">Questions</p><h2>FAQ</h2>
 <details><summary>What is an MCP server?</summary><p>The Model Context Protocol is an open standard that lets AI assistants call outside tools. An MCP server is a set of those tools behind one URL. Add the URL to your assistant and it can use them when your question needs them.</p></details>
 <details><summary>Does it cost anything or need an account?</summary><p>No. It is free, with no signup and no API key.</p></details>
-<details><summary>Where does the data come from?</summary><p>Public US government sources: USAspending.gov for federal contract spending and Grants.gov for open and forecasted federal funding.</p></details>
+<details><summary>Where does the data come from?</summary><p>Public US government sources: USAspending.gov (federal contract spending), Grants.gov (federal funding), BLS QCEW (industry establishments and jobs by state) and SEC EDGAR Form D (private fundraising), plus Gershon Consulting's curated list of US trade shows. LinkedIn tools return search links only.</p></details>
 <details><summary>My company sells to businesses, not to government. Is it useful?</summary><p>Yes. The US companies winning federal contracts in your category are often the integrators, distributors and resellers a foreign company partners with first, whether or not you ever sell to government.</p></details>
 <details><summary>Can my company apply for US federal grants?</summary><p>Most federal grants require a US-registered organisation, so foreign companies usually apply through a US subsidiary or a US partner. This is general information, not legal advice.</p></details>
 <details><summary>Can it change anything or read my data?</summary><p>No. Every tool is read-only. The server only sees the keywords your AI sends and keeps nothing.</p></details>

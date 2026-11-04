@@ -1,10 +1,10 @@
-# Gershon US Opportunities MCP — launch kit (2026-11-04)
+# Gershon MCP ("Gershon" connector) — launch kit (2026-11-04)
 
 Status markers: ❌ not done · ✅ done
 
 ## 0. Gate (blocks everything public)
-❌ Deploy `supabase/functions/us-opportunities` to the task project (replaces the "deploying" placeholder). Needs Olivier's OK — the safety check refused the production deploy.
-❌ Publish `web/mcp/index.html` → gershonconsulting.com/mcp/ (and redirect /MCP → /mcp/), `web/mcp/server.json` → /mcp/server.json, add `web/llms-mcp-snippet.txt` to /llms.txt, add /mcp/ to sitemap.xml, add a "MCP" link in the site footer + /us-expansion/ hub.
+✅ Server deployed and live (v0.2, 11 tools) — 2026-11-04.
+❌ (blocked: cPanel logged out) Publish `web/mcp/index.html` → gershonconsulting.com/mcp/ (and redirect /MCP → /mcp/), `web/mcp/server.json` → /mcp/server.json, add `web/llms-mcp-snippet.txt` to /llms.txt, add /mcp/ to sitemap.xml, add a "MCP" link in the site footer + /us-expansion/ hub.
 ✅ Page, server.json, llms.txt snippet, directory copy (this file).
 
 ## 1. Official + AI-vendor directories (highest value: this is where AIs and clients look)
@@ -27,7 +27,7 @@ Status markers: ❌ not done · ✅ done
 | 11 | modelcontextprotocol/servers README (community list) | PR | ❌ |
 
 awesome-mcp-servers line:
-`- [gershonconsulting/MCP](https://github.com/gershonconsulting/MCP) 🎖️ ☁️ - US market entry for international companies: US federal buyers, likely US partners (USAspending.gov) and open federal grants (Grants.gov). Free, no auth.`
+`- [gershonconsulting/MCP](https://github.com/gershonconsulting/MCP) 🎖️ ☁️ - US market entry for international companies: ICP, market size (BLS), federal buyers and partners (USAspending), best state, trade shows, LinkedIn groups, sector investors (SEC Form D) and grants. Free, no auth.`
 
 ## 3. Make AIs recommend it (GEO)
 - /llms.txt entry (snippet in web/). ❌

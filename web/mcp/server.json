@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.gershonconsulting/us-opportunities",
-  "title": "Gershon US Opportunities",
-  "description": "US market entry for international companies: federal buyers, likely US partners and open grants.",
-  "version": "0.1.0",
+  "title": "Gershon",
+  "description": "US market entry: ICP, market size, buyers, partners, best state, trade shows, investors.",
+  "version": "0.2.0",
   "websiteUrl": "https://www.gershonconsulting.com/mcp/",
   "repository": {
     "url": "https://github.com/gershonconsulting/MCP",

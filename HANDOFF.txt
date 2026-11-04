@@ -1,15 +1,18 @@
 HANDOFF.txt - MCP (Gershon MCP)
-Written by Claude, 2026-11-04. Read the master handoff first: github.com/gershonconsulting/memory -> HANDOFF.txt
+Updated by Claude, 2026-11-04 evening. Master handoff: github.com/gershonconsulting/memory -> HANDOFF.txt
 Rules: Olivier never runs commands, uploads or clicks injected buttons. Ariel = code, Charles = admin panels (both AI).
 
 STATUS
- ✅ v0.1 code: 9 read-only tools (Task, Client, Radar), 8/8 tests pass, type-check passes.
- ✅ LIVE 2026-11-04 (Olivier: "approve deploy"): sql/01 applied in task project, sql/02 in radar project,
-    edge functions gershon-mcp (v1) and us-opportunities (v2) deployed, verify_jwt=false. End-to-end tested.
-    Internal URL: https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/gershon-mcp/<token>  (token in task.mcp_config, NOT in git)
-    Public URL:   https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities
-    Deploy route: Supabase MCP deploy_edge_function (files index.ts, tools.ts, _shared/mcp.ts with ./_shared imports).
- ✅ Public "Gershon" connector (us-opportunities): 4 public tools, live, tested on Urban Factory,
-    CanalChat, Meteor Biotech. Brief doc: claude.ai/artifact/8JnfgT3nNcWS7JAUBstswN
- ❌ v0.2 ideas: US events via events.gershon.ai, new US companies (E2 feed), SAM.gov open tenders (free key), lead log table.
- ❌ Later: OAuth instead of URL token; write tools (mark task done) only with Olivier's OK.
+ ✅ Internal server gershon-mcp LIVE (9 read-only tools: Task, Client, Radar). Private — never list it publicly.
+    https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/gershon-mcp/<token>  (token in task.mcp_config, NOT in git)
+ ✅ Public "Gershon" connector (us-opportunities) LIVE v0.2, 11 tools, all tested live 2026-11-04:
+    https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities
+    Deploy route: Supabase MCP deploy_edge_function, files us-opportunities/{index,tools,research}.ts + _shared/mcp.ts,
+    entrypoint us-opportunities/index.ts, verify_jwt=false.
+ ✅ 21/21 tests pass, deno check passes. Name decided by Olivier: just "Gershon".
+ ✅ /mcp page built: web/mcp/index.html (+ web/mcp/server.json, web/llms-mcp-snippet.txt). Launch plan: LAUNCH.md.
+ ❌ Publish web/mcp/* to gershonconsulting.com/mcp/ — cPanel logged out in both Chromes (Claude may not type the
+    cPanel password). Needs a cPanel login in the Chrome Claude uses, then upload to public_html/mcp/ + /MCP redirect.
+ ❌ Directory listings (official MCP Registry, Anthropic directory, Smithery, Glama, PulseMCP, mcp.so, awesome-mcp-servers).
+ ❌ Later: custom domain for the endpoint (e.g. mcp.gershon.ai), OAuth for internal server, events.gershon.ai feed
+    instead of the curated event list, SAM.gov open tenders (free key), Census CBP once a Census API key exists.

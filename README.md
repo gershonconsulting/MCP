@@ -32,17 +32,26 @@ through safe, read-only "buttons" instead of clicking around in a browser.
 3. Deploy `supabase/functions/gershon-mcp` with verify_jwt off.
 4. Add the connector URL in Claude (Settings → Connectors → Add custom connector).
 
-## Server 2 — "Gershon" connector (public, US opportunities, v0.1)
-Supabase Edge Function `us-opportunities` (same task project). Public data only, no token.
+## Server 2 — "Gershon" connector (public, US opportunities, v0.2) ✅ live
+Supabase Edge Function `us-opportunities` (task project), public data only, no token.
+Endpoint: `https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities` · page: https://www.gershonconsulting.com/mcp/
 
-| Tool | What it answers |
-|---|---|
-| `us_opportunity_brief` | One-shot: federal demand, likely US partners, funding, Gershon next steps + booking link |
-| `find_us_federal_buyers` | US federal offices buying this, and the US companies winning that money (giants skipped) |
-| `find_us_grants` | Open/forecasted Grants.gov funding (exact-phrase search, on-topic flag) |
-| `talk_to_gershon` | Booking link + a brief to paste |
+| Tool | What it answers | Source |
+|---|---|---|
+| `us_opportunity_brief` | One-shot: federal demand, likely US partners, funding, next steps | USAspending, Grants.gov |
+| `define_us_icp` | US ICP worksheet grounded in the category's NAICS codes and where they concentrate | USAspending, BLS QCEW |
+| `us_market_size` | US establishments, jobs, wages per NAICS, top states, federal spend | BLS QCEW, USAspending |
+| `find_us_federal_buyers` | Federal offices buying this + US companies winning it (giants skipped) | USAspending |
+| `us_partners_direct_vs_indirect` | End buyers vs distributors / integrators / OEMs winning the business | USAspending (NAICS split) |
+| `best_us_state_to_set_up` | States scored 50% federal demand + 50% industry presence, hubs, Delaware vs operating state | USAspending, BLS QCEW |
+| `find_us_events` | Recurring US trade shows matching the category (typical month/city) | Gershon curated list |
+| `find_linkedin_groups` | LinkedIn search links for groups/posts/buyers (no scraping) | — |
+| `find_smart_money_investors` | Sector funds and US companies raising (Form D, 24 months) | SEC EDGAR |
+| `find_us_grants` | Open/forecasted federal funding | Grants.gov |
+| `talk_to_gershon` | Booking link + brief | — |
 
-Sources: USAspending.gov and Grants.gov (free, no key). Live demo: `deno run -A test/live_demo.ts "Urban Factory" "docking station,computer accessories"`.
+Live demo: `deno run -A test/live_demo.ts "Urban Factory" "docking station,computer accessories"`.
+Registry listing: `server.json` (name `io.github.gershonconsulting/us-opportunities`). Public page source: `web/mcp/`.
 
 ## Tests
-`deno test test/` — 12 tests, fixtures only, no network.
+`deno test test/` — 21 tests, fixtures only, no network.
