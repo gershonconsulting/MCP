@@ -76,7 +76,7 @@ export async function grants(f: Fetcher, keyword: string, limit: number) {
   });
   const hits = (d?.data?.oppHits ?? []) as Record<string, any>[];
   // Grants.gov searches full documents, so many hits are unrelated. Flag hits whose title mentions the topic.
-  const words = keyword.toLowerCase().replace(/"/g, "").split(/\s+/).filter((w) => w.length >= 4 || /^[a-z]{2,3}$/.test(w));
+  const words = keyword.toLowerCase().replace(/"/g, "").split(/\s+/).filter((w) => w.length >= 4 || (/^[a-z]{2,3}$/.test(w) && !["and", "the", "for", "of", "in", "to", "on"].includes(w)));
   const onTopic = (t: string) => words.some((w) => new RegExp(`\\b${w.replace(/[^a-z0-9]/g, "")}`, "i").test(t));
   return {
     keyword, source: "Grants.gov — open and forecasted federal funding",
