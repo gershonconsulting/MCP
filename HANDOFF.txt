@@ -1,0 +1,12 @@
+HANDOFF.txt - MCP (Gershon MCP)
+Written by Claude, 2026-11-04. Read the master handoff first: github.com/gershonconsulting/memory -> HANDOFF.txt
+Rules: Olivier never runs commands, uploads or clicks injected buttons. Ariel = code, Charles = admin panels (both AI).
+
+STATUS
+ ✅ v0.1 code: 9 read-only tools (Task, Client, Radar), 8/8 tests pass, type-check passes.
+ ❌ Not live yet. The production steps were refused by the safety check pending Olivier's OK:
+    - apply sql/01 in task project, sql/02 in radar project (token value is NOT in git)
+    - deploy edge function gershon-mcp (task project, verify_jwt=false)
+    - add the connector URL in claude.ai
+ ❌ Next product direction (Olivier 2026-11-04): a client-facing "US Opportunities" MCP. See docs/us-opportunities.md.
+ ❌ Later: OAuth instead of URL token; write tools (mark task done) only with Olivier's OK.
