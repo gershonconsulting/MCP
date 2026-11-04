@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gershon US Opportunities MCP Server — US market data for any AI | Gershon Consulting</title>
+<meta name="description" content="Free, public MCP server for Claude, ChatGPT, Cursor, VS Code and Gemini: ask your AI who in the US buys what you sell, which US companies could partner with you, and what federal funding is open.">
+<link rel="canonical" href="https://www.gershonconsulting.com/mcp/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Gershon Consulting">
+<meta property="og:title" content="Gershon US Opportunities — the MCP server for US market entry">
+<meta property="og:description" content="Plug it into Claude or ChatGPT and ask: who in the US could buy from us? Public US data, no signup, free.">
+<meta property="og:url" content="https://www.gershonconsulting.com/mcp/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1496588152823-86ff7695e68f?auto=format&fit=crop&w=1200&h=630&q=75">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@GershonCons">
+<link rel="alternate" type="application/json" title="MCP server.json" href="https://www.gershonconsulting.com/mcp/server.json">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Inter+Tight:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--red:#b3261e;--red-d:#8e1c16;--ink:#141412;--paper:#fafaf7;--sand:#f1efe9;--line:#e3e0d6;--mute:#5d5b53}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter Tight','Helvetica Neue',Helvetica,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;font-size:18px}
+a{color:var(--red)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.narrow{max-width:820px}
+header{position:sticky;top:0;z-index:10;background:rgba(250,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:66px;gap:16px}
+header img{height:38px;width:auto}
+header nav{display:flex;gap:20px;align-items:center;font-size:15px;font-weight:600}
+header nav a{color:var(--ink);text-decoration:none}
+@media(max-width:760px){header nav a:not(.btn){display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:999px;font-weight:600;background:var(--red);color:#fff!important;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:600}
+.btn:hover{background:var(--red-d)}.btn.sm{min-height:40px;padding:0 18px;font-size:15px}
+.btn.ghost{background:transparent;color:#fff!important;border:1px solid rgba(255,255,255,.4)}
+.hero{background:var(--ink);color:#fff;padding:88px 0 80px}
+.kicker{font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#ffb4ab;margin:0 0 14px}
+.sec .kicker{color:var(--red)}
+h1{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:clamp(36px,5.2vw,62px);line-height:1.04;margin:0 0 20px;max-width:17ch}
+h2{font-family:Fraunces,Georgia,serif;font-weight:500;font-size:clamp(28px,3.3vw,40px);line-height:1.12;margin:0 0 16px}
+h3{font-size:20px;margin:0 0 8px}
+.lead{font-size:21px;max-width:46ch;color:#e9e7e0;margin:0 0 28px}
+.endpoint{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;max-width:880px;margin:0 0 26px}
+.endpoint code{flex:1 1 420px;background:#24231f;border:1px solid #3a3933;border-radius:12px;padding:14px 16px;font:15px 'JetBrains Mono',monospace;color:#fff;overflow-x:auto;white-space:nowrap}
+.badges{display:flex;gap:10px;flex-wrap:wrap;font-size:14px;color:#d7d5cc}.badges span{border:1px solid #3a3933;border-radius:999px;padding:5px 12px}
+.sec{padding:76px 0}.sec.alt{background:var(--sand)}
+.intro{max-width:720px;color:#3a3933}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:28px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.card code{font:14px 'JetBrains Mono',monospace;color:var(--red)}.card p{margin:8px 0 0;color:var(--mute);font-size:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0 0}
+.tabs button{font:inherit;font-size:15px;font-weight:600;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:14px}.panel.on{display:block}
+.panel ol{margin:0;padding-left:22px}.panel li{margin:6px 0}
+pre{background:var(--ink);color:#f1efe9;border-radius:12px;padding:16px;overflow-x:auto;font:14px/1.5 'JetBrains Mono',monospace;margin:12px 0 0}
+.prompts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:26px}
+.prompt{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);border-radius:12px;padding:16px 18px;font-size:17px}
+.sample{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px}@media(max-width:820px){.sample{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:16px;background:#fff}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}th{background:var(--sand)}
+details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:10px 0}
+summary{font-weight:600;cursor:pointer}details p{margin:10px 0 0;color:#3a3933}
+.band{background:var(--ink);color:#fff;border-radius:22px;padding:40px 34px;text-align:center}
+.band p{color:#d7d5cc;max-width:56ch;margin:0 auto 22px}
+footer{border-top:1px solid var(--line);padding:30px 0;font-size:14px;color:var(--mute)}footer a{color:var(--mute)}
+.copied{font-size:14px;color:#9fe0a4;align-self:center;display:none}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"SoftwareApplication","@id":"https://www.gershonconsulting.com/mcp/#app","name":"Gershon US Opportunities MCP Server","alternateName":["Gershon MCP","Gershon US Opportunities"],"applicationCategory":"BusinessApplication","applicationSubCategory":"Model Context Protocol server","operatingSystem":"Any (remote, Streamable HTTP)","url":"https://www.gershonconsulting.com/mcp/","downloadUrl":"https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities","codeRepository":"https://github.com/gershonconsulting/MCP","softwareVersion":"0.1.0","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Public MCP server that lets any AI assistant find US market opportunities for an international company: US federal buyers and spend, US companies winning that business (likely partners), and open federal grants. Data from USAspending.gov and Grants.gov.","featureList":["us_opportunity_brief","find_us_federal_buyers","find_us_grants","talk_to_gershon"],"publisher":{"@id":"https://www.gershonconsulting.com/#org"}},
+{"@type":"Organization","@id":"https://www.gershonconsulting.com/#org","name":"Gershon Consulting LLC","url":"https://www.gershonconsulting.com/","logo":"https://www.gershonconsulting.com/new/logo3d-t.webp"},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the Gershon US Opportunities MCP server?","acceptedAnswer":{"@type":"Answer","text":"A free, public Model Context Protocol server. Add its URL to Claude, ChatGPT, Cursor, VS Code or Gemini CLI and your AI can look up which US federal offices buy what you sell, which US companies already win that business, and which federal grants are open."}},
+{"@type":"Question","name":"Does it cost anything or need an account?","acceptedAnswer":{"@type":"Answer","text":"No. It is free, needs no signup and no API key."}},
+{"@type":"Question","name":"Where does the data come from?","acceptedAnswer":{"@type":"Answer","text":"Public US government sources: USAspending.gov for federal contract spending and Grants.gov for open and forecasted federal funding. No private or client data is exposed."}},
+{"@type":"Question","name":"Can it change anything in my accounts?","acceptedAnswer":{"@type":"Answer","text":"No. Every tool is read-only and the server stores nothing about your questions."}}]}]}</script>
+<!--GC_TRACKERS-->
+</head><body>
+<header><div class="wrap"><a href="https://www.gershonconsulting.com/"><img src="https://www.gershonconsulting.com/new/logo3d-t.webp?v=5" alt="Gershon Consulting" width="152" height="38"></a>
+<nav><a href="#install">Install</a><a href="#tools">Tools</a><a href="#faq">FAQ</a><a href="https://www.gershonconsulting.com/us-expansion/">US expansion guides</a><a class="btn sm" href="https://www.gershonconsulting.com/calendar" data-ev="booking_click">Book a call</a></nav></div></header>
+
+<section class="hero"><div class="wrap">
+<p class="kicker">MCP server · Free · Public US data</p>
+<h1>Ask your AI who in the US could buy from you.</h1>
+<p class="lead">Gershon US Opportunities is a Model Context Protocol server. Add one URL to Claude, ChatGPT, Cursor, VS Code or Gemini, and your assistant can map US federal buyers, likely US partners and open funding for your product — in one question.</p>
+<div class="endpoint"><code id="ep">https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities</code><button class="btn" id="copy" data-ev="mcp_copy_url">Copy URL</button><span class="copied" id="ok">Copied ✓</span></div>
+<div class="badges"><span>Streamable HTTP</span><span>No signup · no API key</span><span>Read-only</span><span>4 tools</span><span>Open source</span></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+<p class="kicker">Try it</p><h2>Questions it answers</h2>
+<p class="intro">Once connected, just ask in plain words. Your AI picks the right tool.</p>
+<div class="prompts">
+<div class="prompt">"We make laptop docking stations in France. Where are our US opportunities?"</div>
+<div class="prompt">"Which US federal agencies spend on medical imaging AI, and which US companies win those contracts?"</div>
+<div class="prompt">"Are there open US federal grants for battery recycling?"</div>
+<div class="prompt">"Find mid-size US partners already selling cybersecurity to the Department of Defense."</div>
+</div>
+<div class="sample">
+<div><h3>Real output, docking stations, last 12 months</h3>
+<table><tr><th>Top US federal buyers</th><th>Spend</th></tr>
+<tr><td>U.S. Citizenship and Immigration Services</td><td>$19.1M</td></tr>
+<tr><td>Department of the Navy</td><td>$8.6M</td></tr>
+<tr><td>Department of the Army</td><td>$6.5M</td></tr>
+<tr><td>Department of Veterans Affairs</td><td>$3.5M</td></tr></table>
+<p style="font-size:14px;color:var(--mute)">Source: USAspending.gov, run on November 4, 2026. The same answer lists the US companies winning that money (giants filtered out) as possible partners.</p></div>
+<div><h3>What comes back</h3><ul>
+<li>Total federal demand and the offices behind it</li>
+<li>Possible US partners: mid-size companies already winning that business</li>
+<li>Open and forecasted federal grants, with deadlines and links</li>
+<li>Concrete next steps and a free call with Gershon Consulting if you want help acting on it</li></ul></div>
+</div>
+</div></section>
+
+<section class="sec alt" id="install"><div class="wrap">
+<p class="kicker">Install</p><h2>Connect in under a minute</h2>
+<p class="intro">Same URL everywhere. Pick your assistant.</p>
+<div class="tabs" role="tablist">
+<button role="tab" aria-selected="true" data-t="claude">Claude</button><button role="tab" data-t="chatgpt">ChatGPT</button><button role="tab" data-t="cc">Claude Code</button><button role="tab" data-t="cursor">Cursor</button><button role="tab" data-t="vscode">VS Code</button><button role="tab" data-t="gemini">Gemini CLI</button>
+</div>
+<div class="panel on" id="p-claude"><ol><li>Open Claude (web or desktop) → <b>Settings → Connectors</b>.</li><li>Click <b>Add custom connector</b>, name it <b>Gershon US Opportunities</b>.</li><li>Paste the URL above and save. Leave authentication empty.</li><li>In a chat, enable the connector from the tools menu and ask your question.</li></ol><p style="font-size:14px;color:var(--mute)">Custom connectors depend on your Claude plan.</p></div>
+<div class="panel" id="p-chatgpt"><ol><li>Open ChatGPT → <b>Settings → Apps &amp; Connectors → Advanced</b> and turn on <b>Developer mode</b>.</li><li>Choose <b>Create</b>, name it <b>Gershon US Opportunities</b>, paste the URL, authentication <b>None</b>.</li><li>Start a chat, add the connector from the + menu, and ask.</li></ol><p style="font-size:14px;color:var(--mute)">Developer-mode connectors depend on your ChatGPT plan; menu names can change.</p></div>
+<div class="panel" id="p-cc"><pre>claude mcp add --transport http gershon-us-opportunities https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities</pre></div>
+<div class="panel" id="p-cursor"><p>Add to <code>~/.cursor/mcp.json</code>:</p><pre>{
+  "mcpServers": {
+    "gershon-us-opportunities": {
+      "url": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
+    }
+  }
+}</pre></div>
+<div class="panel" id="p-vscode"><p>Add to <code>.vscode/mcp.json</code>:</p><pre>{
+  "servers": {
+    "gershon-us-opportunities": {
+      "type": "http",
+      "url": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
+    }
+  }
+}</pre></div>
+<div class="panel" id="p-gemini"><p>Add to <code>~/.gemini/settings.json</code>:</p><pre>{
+  "mcpServers": {
+    "gershon-us-opportunities": {
+      "httpUrl": "https://ggudrgzqleunhaiegyce.supabase.co/functions/v1/us-opportunities"
+    }
+  }
+}</pre></div>
+</div></section>
+
+<section class="sec" id="tools"><div class="wrap">
+<p class="kicker">Tools</p><h2>Four read-only tools</h2>
+<div class="cards">
+<div class="card"><code>us_opportunity_brief</code><p>One-shot brief for a company: federal demand, likely US partners, funding and next steps. Start here.</p></div>
+<div class="card"><code>find_us_federal_buyers</code><p>US federal offices buying your category, how much they spend, and the US companies winning that money.</p></div>
+<div class="card"><code>find_us_grants</code><p>Open and forecasted US federal grants for a topic, with agency, deadline and link.</p></div>
+<div class="card"><code>talk_to_gershon</code><p>When you want help acting on it: a free 30-minute call link and a brief to paste.</p></div>
+</div>
+<p class="intro" style="margin-top:26px">Data: <a href="https://www.usaspending.gov" rel="nofollow noopener" target="_blank">USAspending.gov</a> and <a href="https://www.grants.gov" rel="nofollow noopener" target="_blank">Grants.gov</a>, queried live. The server is stateless, stores no questions and exposes no Gershon client data. Source code: <a href="https://github.com/gershonconsulting/MCP" target="_blank" rel="noopener">github.com/gershonconsulting/MCP</a> · machine-readable listing: <a href="/mcp/server.json">server.json</a>.</p>
+</div></section>
+
+<section class="sec alt" id="faq"><div class="wrap narrow">
+<p class="kicker">Questions</p><h2>FAQ</h2>
+<details><summary>What is an MCP server?</summary><p>The Model Context Protocol is an open standard that lets AI assistants call outside tools. An MCP server is a set of those tools behind one URL. Add the URL to your assistant and it can use them when your question needs them.</p></details>
+<details><summary>Does it cost anything or need an account?</summary><p>No. It is free, with no signup and no API key.</p></details>
+<details><summary>Where does the data come from?</summary><p>Public US government sources: USAspending.gov for federal contract spending and Grants.gov for open and forecasted federal funding.</p></details>
+<details><summary>My company sells to businesses, not to government. Is it useful?</summary><p>Yes. The US companies winning federal contracts in your category are often the integrators, distributors and resellers a foreign company partners with first, whether or not you ever sell to government.</p></details>
+<details><summary>Can my company apply for US federal grants?</summary><p>Most federal grants require a US-registered organisation, so foreign companies usually apply through a US subsidiary or a US partner. This is general information, not legal advice.</p></details>
+<details><summary>Can it change anything or read my data?</summary><p>No. Every tool is read-only. The server only sees the keywords your AI sends and keeps nothing.</p></details>
+<details><summary>Who built it?</summary><p>Gershon Consulting, a New York firm that has helped international companies win US customers since 2013 through LinkedIn outbound, lead generation and commercial representation.</p></details>
+</div></section>
+
+<section class="sec"><div class="wrap"><div class="band">
+<h2>Found opportunities? Let's turn them into meetings.</h2>
+<p>Free 30-minute call with Olivier Attia, founder of Gershon Consulting. We map the decision-makers behind your results and how to reach them.</p>
+<a class="btn" href="https://www.gershonconsulting.com/calendar" data-ev="booking_click">Book your free US growth call</a>
+</div></div></section>
+
+<footer><div class="wrap"><p><strong>Gershon Consulting LLC</strong> · 322 W 52nd Street, Suite 158, New York, NY 10019 · +1 (646) 402-5402 · <a href="mailto:olivier@gershonconsulting.com">olivier@gershonconsulting.com</a></p>
+<p><a href="https://www.gershonconsulting.com/">Home</a> · <a href="https://www.gershonconsulting.com/us-expansion/">US expansion guides</a> · <a href="https://github.com/gershonconsulting/MCP">GitHub</a> · <a href="https://www.gershonconsulting.com/privacy-policy/">Privacy</a></p></div></footer>
+<script>
+(function(){
+function ev(n,x){try{if(window.gtag)gtag('event',n,Object.assign({page_path:location.pathname},x||{}))}catch(_){}}
+ev('mcp_page_view');
+document.addEventListener('click',function(e){var a=e.target.closest('[data-ev]');if(a)ev(a.getAttribute('data-ev'),{link_url:a.href||''});});
+document.getElementById('copy').addEventListener('click',function(){var t=document.getElementById('ep').textContent;
+var ok=function(){var s=document.getElementById('ok');s.style.display='inline';setTimeout(function(){s.style.display='none'},1800)};
+if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,ok);else ok();});
+document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){
+document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-selected',x===b)});
+document.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('on',p.id==='p-'+b.dataset.t)});ev('mcp_install_tab',{tab:b.dataset.t});});});
+})();
+</script>
+</body></html>

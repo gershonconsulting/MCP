@@ -93,7 +93,7 @@ export async function grants(f: Fetcher, keyword: string, limit: number) {
 }
 
 export function buildTools(fetcher: Fetcher, now: () => Date = () => new Date()): ToolDef[] {
-  return [
+  return ([
     {
       name: "find_us_federal_buyers",
       title: "US federal buyers & partners",
@@ -186,5 +186,5 @@ export function buildTools(fetcher: Fetcher, now: () => Date = () => new Date())
         ].filter(Boolean).join("\n"),
       }),
     },
-  ];
+  ] as ToolDef[]).map((t) => ({ ...t, openWorld: t.name !== "talk_to_gershon" }));
 }

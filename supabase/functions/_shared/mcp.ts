@@ -15,6 +15,8 @@ export interface ToolDef {
   title?: string;
   description: string;
   inputSchema: Record<string, unknown>;
+  /** true when the tool reaches outside services (public APIs). */
+  openWorld?: boolean;
   run: (args: Record<string, unknown>) => Promise<unknown>;
 }
 
@@ -57,7 +59,7 @@ async function handleOne(msg: Json, tools: ToolDef[], info: ServerInfo): Promise
           title: t.title,
           description: t.description,
           inputSchema: t.inputSchema,
-          annotations: { readOnlyHint: true, openWorldHint: false },
+          annotations: { readOnlyHint: true, openWorldHint: t.openWorld ?? false },
         })),
       });
     case "tools/call": {
