@@ -15,6 +15,9 @@ STATUS
     (public_html/MCP/.htaccess). Route: Olivier logged in to cPanel; Claude uploaded via cPanel UAPI Fileman/upload_files
     from the Chrome tab (files fetched from raw.githubusercontent.com). gershon.ai/mcp copy: PR gershonAI#5 (not merged,
     Cloudflare upload refused by safety check) — optional.
- ❌ Directory listings (official MCP Registry, Anthropic directory, Smithery, Glama, PulseMCP, mcp.so, awesome-mcp-servers).
+ ✅ 2026-11-05 v0.3 LIVE: find_smart_money_investors takes optional US state (SEC Form D locationCodes); annotations.title + destructiveHint:false; descriptions cleaned for directory review.
+ ❌ Anthropic directory submission IN PROGRESS: docs/directory-listing.md has every field. Blocked by Cloudflare human check on claude.ai (Oattia Chrome). Portal draft is in that tab.
+ ❌ Custom domain mcp.gershon.ai (Cloudflare worker proxy) — CF dashboard session expired.
+ ❌ Other directory listings (official MCP Registry, Smithery, Glama, PulseMCP, mcp.so, awesome-mcp-servers).
  ❌ Later: custom domain for the endpoint (e.g. mcp.gershon.ai), OAuth for internal server, events.gershon.ai feed
     instead of the curated event list, SAM.gov open tenders (free key), Census CBP once a Census API key exists.
