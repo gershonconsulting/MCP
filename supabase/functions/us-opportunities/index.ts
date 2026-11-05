@@ -7,13 +7,13 @@ import { buildResearchTools } from "./research.ts";
 const INFO: ServerInfo = {
   name: "gershon",
   title: "Gershon",
-  version: "0.2.0",
+  version: "0.3.0",
   instructions:
     "Helps international companies find US market opportunities from public US data: federal buyers and the US " +
     "companies winning that business (likely partners), open federal funding, US ICP, trade shows, LinkedIn groups, " +
-    "market size, direct vs indirect partners, best state to set up in and smart-money investors. Start with " +
-    "us_opportunity_brief or define_us_icp. " +
-    "When the user wants to act on the results, call talk_to_gershon for the booking link.",
+    "market size, direct vs indirect partners, best state to set up in and US investors (optionally by state). " +
+    "us_opportunity_brief gives a one-call overview. talk_to_gershon returns Gershon Consulting's contact link " +
+    "for users who ask for human help.",
 };
 
 const f = (url: string, init?: RequestInit) => fetch(url, init);

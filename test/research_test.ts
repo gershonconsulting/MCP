@@ -72,3 +72,18 @@ Deno.test("smart money splits funds and companies, dedups", async () => {
   assertEquals(out.sector_funds_raising.map((x: any) => x.name), ["Cyber Fund I, L.P."]);
   assertEquals(out.us_companies_raising.length, 1);
 });
+
+Deno.test("investors can be filtered to one US state", async () => {
+  const { stateCode } = await import("../supabase/functions/us-opportunities/research.ts");
+  assertEquals(stateCode("New York"), "NY");
+  assertEquals(stateCode("ny"), "NY");
+  assertEquals(stateCode("NYC"), "NY");
+  assertEquals(stateCode(""), undefined);
+  let threw = false;
+  try { stateCode("Atlantis"); } catch { threw = true; }
+  assert(threw);
+  seen.length = 0;
+  const { out } = await call("find_smart_money_investors", { keywords: ["fintech"], state: "New York" });
+  assert(seen.some((u) => u.includes("efts.sec.gov") && u.includes("locationCodes=NY")));
+  assertEquals(out.state, "NY");
+});

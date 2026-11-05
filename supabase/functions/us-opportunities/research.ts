@@ -14,6 +14,28 @@ const obj = (properties: Record<string, unknown>, required: string[] = []) =>
   ({ type: "object", properties, required, additionalProperties: false });
 const usd = (n: number) =>
   n >= 1e9 ? `$${(n / 1e9).toFixed(1)}B` : n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : `$${Math.round(n / 1e3)}K`;
+const STATE_CODES: Record<string, string> = {
+  alabama: "AL", alaska: "AK", arizona: "AZ", arkansas: "AR", california: "CA", colorado: "CO", connecticut: "CT",
+  delaware: "DE", "district of columbia": "DC", florida: "FL", georgia: "GA", hawaii: "HI", idaho: "ID", illinois: "IL",
+  indiana: "IN", iowa: "IA", kansas: "KS", kentucky: "KY", louisiana: "LA", maine: "ME", maryland: "MD",
+  massachusetts: "MA", michigan: "MI", minnesota: "MN", mississippi: "MS", missouri: "MO", montana: "MT",
+  nebraska: "NE", nevada: "NV", "new hampshire": "NH", "new jersey": "NJ", "new mexico": "NM", "new york": "NY",
+  "north carolina": "NC", "north dakota": "ND", ohio: "OH", oklahoma: "OK", oregon: "OR", pennsylvania: "PA",
+  "rhode island": "RI", "south carolina": "SC", "south dakota": "SD", tennessee: "TN", texas: "TX", utah: "UT",
+  vermont: "VT", virginia: "VA", washington: "WA", "west virginia": "WV", wisconsin: "WI", wyoming: "WY",
+  "new york city": "NY", nyc: "NY", "silicon valley": "CA", "san francisco": "CA", "bay area": "CA", boston: "MA",
+  "los angeles": "CA", chicago: "IL", miami: "FL", austin: "TX", seattle: "WA",
+};
+/** "New York", "NY", "nyc" -> "NY"; undefined when empty; throws on an unknown place. */
+export function stateCode(v: unknown): string | undefined {
+  const t = str(v);
+  if (!t) return undefined;
+  const up = t.toUpperCase();
+  if (/^[A-Z]{2}$/.test(up) && Object.values(STATE_CODES).includes(up)) return up;
+  const code = STATE_CODES[t.toLowerCase().replace(/\./g, "").replace(/,?\s*(usa|us|united states)$/, "").trim()];
+  if (!code) throw new Error(`Unknown US state "${t}". Use a state name or 2-letter code, e.g. "New York" or "NY".`);
+  return code;
+}
 const KEYWORDS = { type: "array", items: { type: "string" }, description: "1–5 short keywords for the product, e.g. ['docking station','usb-c hub']" };
 
 function yearWindow(now: Date) {
@@ -220,13 +242,13 @@ export async function bestState(f: Fetcher, keywords: string[], now: Date) {
 // ---------------------------------------------------------------- smart money
 const SEC_UA = "Gershon Consulting US Opportunities MCP olivier@gershonconsulting.com";
 
-export async function smartMoney(f: Fetcher, keywords: string[], now: Date) {
+export async function smartMoney(f: Fetcher, keywords: string[], now: Date, state?: string) {
   const end = now.toISOString().slice(0, 10);
   const s = new Date(now); s.setUTCMonth(s.getUTCMonth() - 24);
   const start = s.toISOString().slice(0, 10);
   const all = await Promise.all(keywords.slice(0, 3).map(async (k) => {
     const q = encodeURIComponent(k.includes(" ") ? `"${k}"` : k);
-    const res = await f(`https://efts.sec.gov/LATEST/search-index?q=${q}&forms=D&dateRange=custom&startdt=${start}&enddt=${end}`,
+    const res = await f(`https://efts.sec.gov/LATEST/search-index?q=${q}&forms=D&dateRange=custom&startdt=${start}&enddt=${end}${state ? `&locationCodes=${state}` : ""}`,
       { headers: { "User-Agent": SEC_UA, Accept: "application/json" } });
     if (!res.ok) return [];
     const d = await res.json();
@@ -244,7 +266,8 @@ export async function smartMoney(f: Fetcher, keywords: string[], now: Date) {
   }));
   const enc = encodeURIComponent;
   return {
-    keywords, window: `${start} to ${end}`, source: "SEC EDGAR Form D (US private placements) — names matching your keywords",
+    keywords, state: state ?? "all US", window: `${start} to ${end}`,
+    source: "SEC EDGAR Form D (US private placements) — names matching your keywords" + (state ? `, filer based in ${state}` : ""),
     sector_funds_raising: filings.filter((x) => x.is_fund).slice(0, 12),
     us_companies_raising: filings.filter((x) => !x.is_fund).slice(0, 12),
     how_to_read: [
@@ -260,7 +283,7 @@ export async function smartMoney(f: Fetcher, keywords: string[], now: Date) {
     searches: keywords.slice(0, 3).map((k) => ({
       keyword: k,
       linkedin_investors: `https://www.linkedin.com/search/results/people/?keywords=${enc("venture partner " + k)}&geoUrn=%5B%22103644278%22%5D`,
-      web: `https://www.google.com/search?q=${enc(k + " venture capital fund United States")}`,
+      web: `https://www.google.com/search?q=${enc(k + " venture capital fund " + (state ?? "United States"))}`,
     })),
     talk_to_gershon: { booking_url: BOOKING_URL, note: "Gershon introduces founders to US partners and investors as part of US entry work." },
   };
@@ -400,10 +423,15 @@ export function buildResearchTools(fetcher: Fetcher, now: () => Date = () => new
     {
       name: "find_smart_money_investors", title: "Find smart-money investors", openWorld: true,
       description:
-        "Finds US investment funds raising money for this sector and US companies in the space that raised privately in the " +
-        "last 24 months (SEC Form D), plus strategic and non-dilutive options and ready-made investor searches.",
-      inputSchema: obj({ keywords: KEYWORDS }, ["keywords"]),
-      run: async (a) => smartMoney(fetcher, need(a), now()),
+        "Finds US investors for a sector, optionally in one US state (e.g. New York): investment funds raising money for " +
+        "the sector and US companies in the space that raised privately in the last 24 months (SEC Form D), plus " +
+        "strategic and non-dilutive options and ready-made investor searches. Useful for non-US (e.g. European) companies " +
+        "looking for US funding.",
+      inputSchema: obj({
+        keywords: KEYWORDS,
+        state: { type: "string", description: "Optional US state name or 2-letter code, e.g. 'New York' or 'NY'" },
+      }, ["keywords"]),
+      run: async (a) => smartMoney(fetcher, need(a), now(), stateCode(a.state)),
     },
   ];
 }

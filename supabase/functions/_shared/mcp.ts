@@ -59,7 +59,7 @@ async function handleOne(msg: Json, tools: ToolDef[], info: ServerInfo): Promise
           title: t.title,
           description: t.description,
           inputSchema: t.inputSchema,
-          annotations: { readOnlyHint: true, openWorldHint: t.openWorld ?? false },
+          annotations: { title: t.title, readOnlyHint: true, destructiveHint: false, openWorldHint: t.openWorld ?? false },
         })),
       });
     case "tools/call": {

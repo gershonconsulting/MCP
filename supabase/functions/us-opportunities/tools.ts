@@ -128,8 +128,9 @@ export function buildTools(fetcher: Fetcher, now: () => Date = () => new Date())
       name: "us_opportunity_brief",
       title: "US opportunity brief",
       description:
-        "One-shot brief for a company: federal demand, likely US partners and funding for its keywords, plus the " +
-        "concrete next steps Gershon would take. Use this first when someone asks 'where are my US opportunities?'.",
+        "One-call US market-entry brief for a non-US company: US federal demand for its products, the US companies " +
+        "already winning that business (likely partners) and open federal funding, plus suggested next steps. Use it " +
+        "when someone asks where their US opportunities are.",
       inputSchema: obj({
         company: { type: "string", description: "Company name" },
         what_you_sell: { type: "string", description: "One sentence" },
@@ -169,8 +170,8 @@ export function buildTools(fetcher: Fetcher, now: () => Date = () => new Date())
       name: "talk_to_gershon",
       title: "Talk to Gershon",
       description:
-        "When the user wants help acting on these opportunities: returns the booking link for a free 30-minute call " +
-        "with Gershon Consulting and a short brief they can paste in the booking form.",
+        "Use only when the user asks for human help with US expansion: returns Gershon Consulting's booking link for " +
+        "a free 30-minute call and a short brief they can paste in the booking form. Sends nothing and stores nothing.",
       inputSchema: obj({
         name: { type: "string" }, company: { type: "string" }, country: { type: "string" },
         interest: { type: "string", description: "What they want to achieve in the US" },
