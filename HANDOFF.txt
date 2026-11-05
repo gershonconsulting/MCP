@@ -11,8 +11,10 @@ STATUS
     entrypoint us-opportunities/index.ts, verify_jwt=false.
  ✅ 21/21 tests pass, deno check passes. Name decided by Olivier: just "Gershon".
  ✅ /mcp page built: web/mcp/index.html (+ web/mcp/server.json, web/llms-mcp-snippet.txt). Launch plan: LAUNCH.md.
- ❌ Publish web/mcp/* to gershonconsulting.com/mcp/ — cPanel logged out in both Chromes (Claude may not type the
-    cPanel password). Needs a cPanel login in the Chrome Claude uses, then upload to public_html/mcp/ + /MCP redirect.
+ ✅ 2026-11-05: /mcp page LIVE at https://www.gershonconsulting.com/mcp/ (+ /mcp/server.json). /MCP and /MCP/ 301 -> /mcp/
+    (public_html/MCP/.htaccess). Route: Olivier logged in to cPanel; Claude uploaded via cPanel UAPI Fileman/upload_files
+    from the Chrome tab (files fetched from raw.githubusercontent.com). gershon.ai/mcp copy: PR gershonAI#5 (not merged,
+    Cloudflare upload refused by safety check) — optional.
  ❌ Directory listings (official MCP Registry, Anthropic directory, Smithery, Glama, PulseMCP, mcp.so, awesome-mcp-servers).
  ❌ Later: custom domain for the endpoint (e.g. mcp.gershon.ai), OAuth for internal server, events.gershon.ai feed
     instead of the curated event list, SAM.gov open tenders (free key), Census CBP once a Census API key exists.

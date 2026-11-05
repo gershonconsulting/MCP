@@ -4,7 +4,7 @@ Status markers: ❌ not done · ✅ done
 
 ## 0. Gate (blocks everything public)
 ✅ Server deployed and live (v0.2, 11 tools) — 2026-11-04.
-❌ (blocked: cPanel logged out) Publish `web/mcp/index.html` → gershonconsulting.com/mcp/ (and redirect /MCP → /mcp/), `web/mcp/server.json` → /mcp/server.json, add `web/llms-mcp-snippet.txt` to /llms.txt, add /mcp/ to sitemap.xml, add a "MCP" link in the site footer + /us-expansion/ hub.
+✅ 2026-11-05 Published `web/mcp/index.html` → gershonconsulting.com/mcp/ (redirect /MCP → /mcp/ done), `web/mcp/server.json` → /mcp/server.json. ❌ Still to do: add `web/llms-mcp-snippet.txt` to /llms.txt, add /mcp/ to sitemap.xml, add a "MCP" link in the site footer + /us-expansion/ hub.
 ✅ Page, server.json, llms.txt snippet, directory copy (this file).
 
 ## 1. Official + AI-vendor directories (highest value: this is where AIs and clients look)
